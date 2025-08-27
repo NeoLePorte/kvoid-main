@@ -1,1 +1,241 @@
-<!DOCTYPE html><html><head><title>K-VOID</title></head><body><h1>K-VOID</h1><p>Main site coming soon.</p></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K-VOID ✦ Interdimensional Broadcast</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<meta name="description" content="BARBELITH ✦ K-VOID — interdimensional broadcast terminal.">
+<style>
+:root{
+--bg0:#0b0d0f;--bg1:#1a1d22;--txt:#E8E6E3;--neon:#AD26FF;--acid:#8CFF4F;--warn:#FF1744;--muted:#8b8f9a;
+--glow:0 0 12px rgba(173,38,255,.35),0 0 24px rgba(173,38,255,.2);
+--green-glow:0 0 10px rgba(140,255,79,.3),0 0 18px rgba(140,255,79,.18);
+--scan-alpha:.045;
+--maxw:980px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+margin:0;color:var(--txt);font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;background:
+radial-gradient(1200px 800px at 20% 10%,rgba(173,38,255,.07),transparent 60%),
+radial-gradient(1400px 900px at 90% 110%,rgba(140,255,79,.05),transparent 60%),
+linear-gradient(180deg,var(--bg0),var(--bg1));
+letter-spacing:.2px;
+}
+.scanlines{
+pointer-events:none;position:fixed;inset:0;mix-blend-mode:overlay;opacity:.85
+}
+.scanlines::before{
+content:"";position:absolute;inset:0;background:
+repeating-linear-gradient(0deg,rgba(255,255,255,var(--scan-alpha)) 0px,rgba(255,255,255,var(--scan-alpha)) 1px,transparent 2px);
+animation:scanFlicker 5.5s infinite steps(60);filter:blur(.1px)
+}
+@keyframes scanFlicker{0%,100%{opacity:.75} 50%{opacity:.92}}
+.noise{
+pointer-events:none;position:fixed;inset:-10vh;opacity:.07;mix-blend-mode:screen;transform:translate3d(0,0,0)
+}
+@keyframes grain{0%,100%{transform:translate(0,0)} 10%{transform:translate(-1%,1%)} 20%{transform:translate(1%,-1%)} 30%{transform:translate(-2%,2%)} 40%{transform:translate(2%,-2%)} 50%{transform:translate(1%,1%)} 60%{transform:translate(-1%,-1%)} 70%{transform:translate(2%,0)} 80%{transform:translate(0,2%)} 90%{transform:translate(-2%,0)}}
+.container{max-width:var(--maxw);margin:0 auto;padding:28px 20px 80px}
+.header{
+display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);padding:10px 0 14px
+}
+.brand{font-weight:600;letter-spacing:.6px}
+.brand .sigil{font-family:"Cormorant Garamond",serif;color:var(--neon);text-shadow:var(--glow);font-size:20px;margin-right:6px}
+.ticker{font-size:12px;color:var(--muted)}
+.block{
+margin:22px 0;border:1px solid rgba(255,255,255,.08);background:rgba(12,14,16,.55);backdrop-filter:blur(3px);position:relative
+}
+.block::before{
+content:"";position:absolute;inset:0;border:1px solid rgba(140,255,79,.08);mix-blend-mode:screen;pointer-events:none
+}
+.block-header{
+padding:10px 12px;border-bottom:1px dashed rgba(255,255,255,.12);display:flex;align-items:center;gap:10px
+}
+.tag{color:var(--acid);text-shadow:var(--green-glow)}
+.block-body{padding:14px 12px 16px}
+.kv{
+display:grid;grid-template-columns:120px 1fr;gap:12px;margin:10px 0
+}
+.kv .k{color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.cmd{
+color:var(--txt);text-decoration:none;padding:6px 10px;border:1px solid rgba(255,255,255,.14);display:inline-flex;align-items:center;gap:8px;transition:transform .08s ease,box-shadow .08s ease,color .08s ease;border-radius:2px
+}
+.cmd .cursor{color:var(--acid);margin-right:2px}
+.cmd:hover{transform:translateY(-1px);box-shadow:var(--glow);color:#fff}
+.warning{color:var(--warn)}
+.osc{
+height:56px;background:linear-gradient(180deg,rgba(173,38,255,.08),rgba(173,38,255,.02));border:1px solid rgba(173,38,255,.25);position:relative;overflow:hidden
+}
+.osc canvas{position:absolute;inset:0}
+.glitch{
+position:relative;display:inline-block
+}
+@keyframes microglitch{0%{transform:translate(0,0)} 10%{transform:translate(0,0)} 11%{transform:translate(1px,0)} 12%{transform:translate(-1px,0)} 13%{transform:translate(0,0)} 70%{transform:translate(0,0)} 71%{transform:translate(0,1px)} 72%{transform:translate(0,-1px)} 73%{transform:translate(0,0)} 100%{transform:translate(0,0)}}
+.flicker{animation:microglitch 3.4s infinite}
+.footer{
+margin-top:28px;border-top:1px solid rgba(255,255,255,.08);padding:16px 0 8px;color:var(--muted);font-size:12px
+}
+.sigils{
+font-family:"Cormorant Garamond",serif;color:rgba(255,255,255,.75);letter-spacing:1.2px
+}
+.ports{margin-top:6px}
+.ports a{color:var(--txt);text-decoration:none}
+.ports a:hover{color:#fff;text-shadow:var(--glow)}
+.terminal{
+margin-top:24px;border:1px solid rgba(255,255,255,.12);background:rgba(10,10,12,.6)
+}
+.term-head{padding:8px 10px;border-bottom:1px dashed rgba(255,255,255,.12);color:var(--muted);font-size:12px}
+.term-body{padding:10px}
+.term-log{height:140px;overflow:auto;font-size:12px;line-height:1.5}
+.prompt{
+display:flex;align-items:center;gap:8px;margin-top:10px
+}
+.prompt .caret{color:var(--acid)}
+.prompt input{
+flex:1;background:transparent;border:none;outline:none;color:var(--txt);font:inherit;padding:6px
+}
+.prompt input::placeholder{color:#6c707a}
+.hidden{display:none}
+.nowplaying-title{font-weight:600}
+.nowplaying-meta{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+<svg class="noise" width="100%" height="100%" preserveAspectRatio="none">
+<filter id="f">
+<feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/>
+<feColorMatrix type="saturate" values="0"/>
+<feComponentTransfer>
+<feFuncA type="table" tableValues="0 0.8"/>
+</feComponentTransfer>
+</filter>
+<rect width="100%" height="100%" filter="url(#f)"></rect>
+</svg>
+<div class="container">
+<header class="header">
+<div class="brand"><span class="sigil">✦</span><span class="glitch flicker">K-VOID // SIGNAL NODE</span></div>
+<div class="ticker" id="ticker">INIT…</div>
+</header>
+<section class="block">
+<div class="block-header"><span class="tag">[ NOW PLAYING ]</span></div>
+<div class="block-body">
+<div class="kv"><div class="k">Transmission</div><div class="v nowplaying-title" id="np-title">K-VOID Transmission 04: Portal Drift</div></div>
+<div class="kv"><div class="k">Status</div><div class="v nowplaying-meta" id="np-status">Broadcasting…</div></div>
+<div class="kv"><div class="k">Link</div><div class="v links">
+<a class="cmd" href="https://tune.kvoid.net" target="_blank" rel="noopener"><span class="cursor">&gt;</span>[ TUNE IN ]</a>
+<a class="cmd" href="#" id="open-port"><span class="cursor">&gt;</span>[ OPEN PORT ]</a>
+<a class="cmd" href="#archive"><span class="cursor">&gt;</span>[ ACCESS ARCHIVE ]</a>
+</div></div>
+<div class="osc"><canvas id="osc"></canvas></div>
+</div>
+</section>
+<section class="block" id="archive">
+<div class="block-header"><span class="tag">[ SIGNAL ARCHIVE ]</span></div>
+<div class="block-body">
+<div class="kv"><div class="k">Latest</div><div class="v">Transmission Logs 01–04 now live. Expect recursive bleedthroughs.</div></div>
+<div class="links">
+<a class="cmd" href="#"><span class="cursor">&gt;</span>[ ARTIFACTS ]</a>
+<a class="cmd" href="#"><span class="cursor">&gt;</span>[ TRANSMISSION LOG ]</a>
+<a class="cmd warning" href="#"><span class="cursor">&gt;</span>[ REDACTED ]</a>
+</div>
+</div>
+</section>
+<section class="block">
+<div class="block-header"><span class="tag">[ GLYPH SCANNER ]</span></div>
+<div class="block-body">
+<div class="kv"><div class="k">Status</div><div class="v">Sigil resonance stable. Minor phase flicker acceptable.</div></div>
+<div class="kv"><div class="k">Scanner</div><div class="v"><span class="glitch flicker">⟁ ⟟ ⟊ ⟁ ⟒ ⟟</span></div></div>
+</div>
+</section>
+<section class="terminal hidden" id="terminal">
+<div class="term-head">VOID-PORT v0.1 — type "help" to enumerate rituals</div>
+<div class="term-body">
+<div class="term-log" id="term-log"></div>
+<div class="prompt"><span class="caret">&gt;</span><input id="term-input" placeholder="enter command… (help, fnord, tune, clear)" autocomplete="off" spellcheck="false"></div>
+</div>
+</section>
+<footer class="footer">
+<div class="sigils">⋇ BARBELITH ✦ K-VOID ⋇</div>
+<div class="ports">ports: <a href="https://tune.kvoid.net" target="_blank" rel="noopener">tune</a> · <a href="mailto:contact@kvoid.net">open port</a> · <a href="#">manifest</a></div>
+</footer>
+</div>
+<script>
+(function(){
+const ticker = document.getElementById('ticker');
+const osc = document.getElementById('osc');
+const ctx = osc.getContext('2d');
+function resizeOsc(){osc.width=osc.clientWidth;osc.height=osc.clientHeight}
+window.addEventListener('resize',resizeOsc);resizeOsc();
+let t=0;
+function draw(){
+t+=0.02;
+ctx.clearRect(0,0,osc.width,osc.height);
+const mid=osc.height/2;
+ctx.strokeStyle='rgba(173,38,255,0.85)';
+ctx.lineWidth=1.2;
+ctx.beginPath();
+for(let x=0;x<osc.width;x++){
+const y=mid+Math.sin((x*0.03)+t*6)*8+Math.sin((x*0.013)+t*3)*4+Math.sin((x*0.007)+t*9)*2;
+if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+}
+ctx.stroke();
+requestAnimationFrame(draw);
+}
+draw();
+function pad(n){return String(n).padStart(2,'0')}
+const voidOffsetMs=(Math.floor(Math.random()*8)*3600+Math.floor(Math.random()*59)*60+Math.floor(Math.random()*59))*1000;
+const coordsSeeds=[[40.73,-73.93],[34.05,-118.24],[51.50,-0.12],[35.68,139.69],[48.85,2.35]];
+const pick=coordsSeeds[Math.floor(Math.random()*coordsSeeds.length)];
+function fmtCoords(v,isLat){
+const h=isLat?(v>=0?'N':'S'):(v>=0?'E':'W');const a=Math.abs(v);const d=Math.floor(a);const m=Math.round((a-d)*100);
+return d.toFixed(0)+"°"+pad(m)+h
+}
+function tick(){
+const now=new Date();
+const utc=new Date(now.toISOString());
+const voidTime=new Date(utc.getTime()+voidOffsetMs);
+const utcStr=utc.getUTCFullYear()+"-"+pad(utc.getUTCMonth()+1)+"-"+pad(utc.getUTCDate())+" "+pad(utc.getUTCHours())+":"+pad(utc.getUTCMinutes())+":"+pad(utc.getUTCSeconds())+" UTC";
+const offH=Math.floor(voidOffsetMs/3600000),offM=Math.floor((voidOffsetMs%3600000)/60000),offS=Math.floor((voidOffsetMs%60000)/1000);
+const offStr="+"+pad(offH)+":"+pad(offM)+":"+pad(offS);
+ticker.textContent="COORD "+fmtCoords(pick[0],true)+" "+fmtCoords(pick[1],false)+" • UTC "+utcStr+" • VOID "+offStr+" "+pad(voidTime.getUTCHours())+":"+pad(voidTime.getUTCMinutes())+":"+pad(voidTime.getUTCSeconds());
+}
+setInterval(tick,1000);tick();
+const openPort=document.getElementById('open-port');
+const terminal=document.getElementById('terminal');
+const termLog=document.getElementById('term-log');
+const termInput=document.getElementById('term-input');
+function showTerminal(){terminal.classList.remove('hidden');termInput.focus()}
+if(openPort){openPort.addEventListener('click',function(e){e.preventDefault();showTerminal()})}
+function log(line){const div=document.createElement('div');div.textContent=line;termLog.appendChild(div);termLog.scrollTop=termLog.scrollHeight}
+function help(){log("commands: help, fnord, tune, archive, clear");log("hint: coordinates may be glitched.")}
+function fnord(){log("you can see the fnords now.") ;log("⟁ consensus veil destabilizing…")}
+function tune(){window.open("https://tune.kvoid.net","_blank")}
+function archive(){log("ACCESSING SIGNAL ARCHIVE…");}
+function clearLog(){termLog.innerHTML=""}
+document.addEventListener('keydown',function(ev){if(ev.key=='/'){showTerminal();ev.preventDefault()}})
+termInput&&termInput.addEventListener('keydown',function(ev){
+if(ev.key==='Enter'){
+const cmd=termInput.value.trim().toLowerCase();log("> "+cmd);termInput.value="";
+switch(cmd){
+case "help": help(); break;
+case "fnord": fnord(); break;
+case "tune": tune(); break;
+case "archive": archive(); break;
+case "clear": clearLog(); break;
+default: log("unknown ritual. type 'help'.");
+}
+}
+});
+const glitches=document.querySelectorAll('.glitch');
+setInterval(function(){
+glitches.forEach(function(el){
+if(Math.random()<.25){el.classList.add('flicker');setTimeout(function(){el.classList.remove('flicker')},220+Math.random()*600)}
+});
+},1200);
+})();
+</script>
+</body>
+</html>
