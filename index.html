@@ -8,47 +8,52 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:#010308; --bg2:#070a12; --grid:#0b0e17;
-  --fg:#d7f7d0; --fg-dim:#9cc79b; --amber:#f6d06b; --acid:#8CFF4F; --mag:#AD26FF; --crim:#FF1744;
+  --bg:#0a0b10; --bg2:#04050a;
+  --ink:#f1efe4; --ink-dim:#bcb8a8;
+  --acid:#9CFF57; --mag:#C02BFF; --amber:#FFD36E; --blood:#FF1744;
   --scan: rgba(255,255,255,.04);
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{
-  margin:0;background:linear-gradient(180deg,var(--bg),var(--bg2));
-  color:var(--fg);font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-}
-/* CRT scaffold */
+body{margin:0;background:radial-gradient(1000px 700px at 10% 0%,rgba(192,43,255,.08),transparent 60%),radial-gradient(1000px 700px at 100% 100%,rgba(156,255,87,.06),transparent 60%),linear-gradient(180deg,var(--bg),var(--bg2));color:var(--ink);font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;}
+body.anarchy{--bg:#100208;--bg2:#000;--ink:#f7f3ff;--acid:#B6FF00;--mag:#ff38ff;--amber:#ffef76}
+
+/* CRT + zine textures */
 .crt{position:relative;min-height:100%;display:flex;flex-direction:column}
-.crt:before{content:"";position:absolute;inset:0;background:
-  repeating-linear-gradient(0deg,var(--scan) 0px,var(--scan) 1px,transparent 2px);
-  mix-blend-mode:overlay;pointer-events:none}
-.grid{position:absolute;inset:0;background:
-  linear-gradient(180deg,transparent,transparent 95%,rgba(173,38,255,.08)),
-  linear-gradient(90deg,transparent 96%,rgba(140,255,79,.06) 100%);
-  background-size:100% 28px, 24px 100%;opacity:.08;pointer-events:none}
+.crt:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,var(--scan) 0px,var(--scan) 1px,transparent 2px);mix-blend-mode:overlay;pointer-events:none}
+.grid{position:absolute;inset:0;background:linear-gradient(180deg,transparent,transparent 95%,rgba(255,255,255,.08)),linear-gradient(90deg,transparent 96%,rgba(255,255,255,.06) 100%);background-size:100% 28px, 24px 100%;opacity:.05;pointer-events:none}
 
-.wrap{max-width:980px;margin:0 auto;padding:22px 16px 28px;width:100%}
-.frame{border:2px solid #1b2030;box-shadow:0 0 0 2px #0a0e18 inset, 0 0 18px rgba(173,38,255,.15);background:rgba(2,4,10,.6)}
-.header{border-bottom:1px dashed #2a3147;padding:10px 12px;display:flex;justify-content:space-between;gap:10px}
-.brand{color:var(--amber);text-shadow:0 0 8px rgba(246,208,107,.25);}
-.status{color:var(--fg-dim);font-size:12px}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 14px 24px;width:100%}
+.frame{border:2px solid #1b2030;box-shadow:0 0 0 2px #0a0e18 inset, 0 0 18px rgba(173,38,255,.15);background:rgba(6,8,12,.55);backdrop-filter:blur(2px)}
+.header{border-bottom:1px dashed #2a3147;padding:10px 12px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.brand{color:var(--amber);text-shadow:0 0 8px rgba(246,208,107,.25);font-weight:700}
+.status{color:var(--ink-dim);font-size:12px}
 
-.screen{padding:12px;min-height:58vh}
+/* Collage zone */
+.collage{position:relative;min-height:56vh;padding:10px 12px;overflow:hidden}
+.sticker{position:absolute;display:inline-block;padding:6px 10px;background:#111;border:1px solid #2c2f45;color:var(--ink);transform:rotate(-2deg);filter:drop-shadow(0 4px 10px rgba(0,0,0,.35));}
+.sticker.badge{background:linear-gradient(135deg,rgba(192,43,255,.25),rgba(156,255,87,.18));border-color:rgba(255,255,255,.18)}
+.sticker.tape{background:repeating-linear-gradient( -45deg, rgba(255,255,255,.07) 0 10px, rgba(255,255,255,.02) 10px 20px );border-style:dashed}
+
+/* Terminal screen block */
+.screen{padding:12px;border:1px solid #2a3147;background:rgba(8,10,14,.6)}
 pre{margin:0;white-space:pre-wrap;word-break:break-word}
 .cursor{display:inline-block;width:9px;height:15px;background:var(--acid);animation:blink 1s steps(1) infinite;vertical-align:baseline}
 @keyframes blink{0%,49%{opacity:0}50%,100%{opacity:1}}
 
-/* ANSI-ish helpers */
-.c-g{color:var(--acid)} .c-a{color:var(--amber)} .c-m{color:var(--mag)} .c-r{color:var(--crim)} .dim{color:var(--fg-dim)}
-.inv{background:var(--acid);color:#001; padding:0 2px}
+/* ANSI helpers */
+.c-g{color:var(--acid)} .c-a{color:var(--amber)} .c-m{color:var(--mag)} .c-r{color:var(--blood)} .dim{color:var(--ink-dim)}
 
-.footer{border-top:1px dashed #2a3147;padding:8px 12px;color:var(--fg-dim);font-size:12px;display:flex;justify-content:space-between;gap:8px}
+/* Prompt bar */
+.promptbar{display:flex;align-items:center;gap:8px;padding:8px 10px;border-top:1px dashed #2a3147;background:rgba(5,6,10,.7)}
+.promptbar .label{color:var(--ink-dim)}
+.promptbar input{flex:1;background:transparent;border:none;outline:none;color:var(--ink);font:inherit;padding:6px 8px}
+.promptbar .btn{cursor:pointer;border:1px solid #2e364f;padding:3px 8px;background:#0b0e16;color:var(--ink);transition:transform .08s ease}
+.promptbar .btn:hover{transform:translateY(-1px);box-shadow:0 0 12px rgba(156,255,87,.25)}
+
+.footer{border-top:1px dashed #2a3147;padding:8px 12px;color:var(--ink-dim);font-size:12px;display:flex;justify-content:space-between;gap:8px}
 .kbd{border:1px solid #2e364f;padding:1px 4px;margin:0 2px;}
 
-.help{position:fixed;right:14px;bottom:14px;font-size:12px;color:var(--fg-dim)}
-
-/* subtle VHS noise */
 .noise{position:fixed;inset:-10vh;opacity:.06;mix-blend-mode:screen;pointer-events:none}
 .noise svg{width:100%;height:100%}
 </style>
@@ -59,21 +64,40 @@ pre{margin:0;white-space:pre-wrap;word-break:break-word}
   <div class="wrap frame">
     <div class="header">
       <div class="brand">▞ K-VOID // PIRATE NODE</div>
-      <div class="status" id="ticker">syncing…</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button id="anarchy" class="btn promptbar btn" title="toggle anarchy">ANARCHY</button>
+        <div class="status" id="ticker">syncing…</div>
+      </div>
     </div>
+
+    <div class="collage" id="collage">
+      <div class="sticker badge" style="left:10px;top:12px;transform:rotate(-4deg)">INTERCEPTED FEED</div>
+      <div class="sticker tape" style="right:18px;top:40px;transform:rotate(3deg)">VOID//TIME OFFSET</div>
+      <div class="sticker" style="left:40%;top:26%;transform:rotate(-7deg)">[ NOW PLAYING ]</div>
+      <div class="sticker badge" style="left:12%;bottom:18%;transform:rotate(8deg)">K-VOID TRANSMISSION 04</div>
+      <div class="sticker tape" style="right:6%;bottom:12%;transform:rotate(-6deg)">TUNE: https://tune.kvoid.net</div>
+    </div>
+
     <div class="screen">
 <pre id="screen"><span class="c-a">K-VOID INTERDIMENSIONAL BROADCAST TERMINAL</span>
-<span class="dim">— recovered interface, build 0x27 —</span>
+<span class="dim">— recovered interface, build 0x2A —</span>
 
 Initiating link… <span class="cursor" id="cur"></span>
 </pre>
     </div>
+
+    <div class="promptbar">
+      <span class="label">&gt;</span>
+      <input id="prompt" placeholder="type: help, tune, archive, open, manifest, clear" autocomplete="off" spellcheck="false">
+      <button class="btn" id="helpBtn">?</button>
+    </div>
+
     <div class="footer">
-      <div>keys: <span class="kbd">1</span> tune <span class="kbd">2</span> archive <span class="kbd">3</span> open-port <span class="kbd">4</span> manifest <span class="kbd">?</span> help</div>
+      <div>keys: <span class="kbd">1</span> tune <span class="kbd">2</span> archive <span class="kbd">3</span> open-port <span class="kbd">4</span> manifest</div>
       <div>BARBELITH ✦ K-VOID</div>
     </div>
   </div>
-  <div class="help">press <b>?</b> to toggle help</div>
+
   <div class="noise" aria-hidden="true">
     <svg preserveAspectRatio="none"><filter id="f"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 0.8"/></feComponentTransfer></filter><rect width="100%" height="100%" filter="url(#f)"></rect></svg>
   </div>
@@ -82,8 +106,11 @@ Initiating link… <span class="cursor" id="cur"></span>
 (function(){
   const screen = document.getElementById('screen');
   const ticker = document.getElementById('ticker');
+  const prompt = document.getElementById('prompt');
+  const helpBtn = document.getElementById('helpBtn');
+  const anarchyBtn = document.getElementById('anarchy');
 
-  // Dynamic ticker: utc + void offset + rotating coords
+  // ticker
   function pad(n){return String(n).padStart(2,'0')}
   const vOffMs=(Math.floor(Math.random()*9)*3600+Math.floor(Math.random()*59)*60+Math.floor(Math.random()*59))*1000;
   const coords=[[37.77,-122.42],[51.50,-0.12],[40.73,-73.93],[35.68,139.69],[52.52,13.40]];
@@ -97,61 +124,63 @@ Initiating link… <span class="cursor" id="cur"></span>
   }
   setInterval(tick,1000); tick();
 
-  // Typewriter intro
+  // typewriter intro
   const lines = [
     "\n\n\x1b[32m[ LINK ESTABLISHED ]\x1b[0m",
     "NOW: Transmission 04 — Portal Drift",
     "Status: Broadcasting…",
-    "\n   ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒",
-    "   ▒  [1] TUNE IN             ▒  → https://tune.kvoid.net",
-    "   ▒  [2] SIGNAL ARCHIVE      ▒  (enter the bleedthrough)",
-    "   ▒  [3] OPEN PORT          ▒  contact@kvoid.net",
-    "   ▒  [4] MANIFEST           ▒  statement of intent",
-    "   ▒  [?] HELP               ▒  shortcuts + rituals",
-    "   ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\n",
-    "Hint: press 1–4 or type commands (help, tune, archive, open, manifest).",
+    "\n  /\\  /\\  /\\  /\\  /\\",
+    "  ZINE MODE ONLINE — tear, paste, transmit",
+    "  [1] TUNE IN  → https://tune.kvoid.net",
+    "  [2] SIGNAL ARCHIVE  — bleedthrough",
+    "  [3] OPEN PORT  — contact@kvoid.net",
+    "  [4] MANIFEST  — intent",
+    "  [?] HELP  — shortcuts",
+    "\nType in the prompt below or press keys 1–4",
   ];
-  let i=0, j=0; let typing=true;
+  let i=0, j=0;
   function append(text){screen.appendChild(document.createTextNode(text))}
   function newline(){screen.appendChild(document.createElement('br'))}
-  function step(){
-    if(i>=lines.length){typing=false;return}
+  (function step(){
+    if(i>=lines.length) return;
     const ln = lines[i];
     if(j < ln.length){ append(ln[j]); j++; setTimeout(step, 6 + Math.random()*24); }
-    else { newline(); i++; j=0; setTimeout(step, 120) }
-  }
-  step();
+    else { newline(); i++; j=0; setTimeout(step, 90) }
+  })();
 
-  // Command handling
-  function openURL(u){window.open(u, '_blank')}
-  function log(msg){screen.appendChild(document.createTextNode("\n> "+msg));newline()}
-  function cmd(input){
-    const v = input.trim().toLowerCase();
+  // command helpers
+  function log(line){screen.appendChild(document.createTextNode("\n> "+line)); newline()}
+  function openURL(u){window.open(u,'_blank')}
+  function cmd(v){
     switch(v){
       case '1': case 'tune': openURL('https://tune.kvoid.net'); break;
       case '2': case 'archive': log('ACCESS ARCHIVE — WIP'); break;
       case '3': case 'open': openURL('mailto:contact@kvoid.net'); break;
       case '4': case 'manifest': log('MANIFEST: counterculture transmission node.'); break;
-      case '?': case 'help':
-        log('keys: 1 tune, 2 archive, 3 open, 4 manifest, ? help, / focus');
-        break;
+      case '?': case 'help': log('commands: tune, archive, open, manifest, clear'); break;
       case 'clear': screen.textContent=''; break;
       default: log('unknown. try: help');
     }
   }
 
-  // Lightweight prompt when user types '/'
-  let promptActive=false; let buffer='';
-  document.addEventListener('keydown', (e)=>{
-    if(e.key==='/' && !promptActive){ promptActive=true; buffer=''; append("\n> "); return }
-    if(!promptActive){
-      if(['1','2','3','4','?'].includes(e.key)) cmd(e.key);
-      return;
+  // prompt events (robust, no global key traps)
+  prompt.addEventListener('keydown', function(e){
+    if(e.key==='Enter'){
+      const v = prompt.value.trim().toLowerCase();
+      if(v) cmd(v);
+      prompt.value='';
     }
-    if(e.key==='Enter'){ cmd(buffer); promptActive=false; return }
-    if(e.key==='Backspace'){ buffer=buffer.slice(0,-1); screen.textContent = screen.textContent.slice(0,-1); return }
-    if(e.key.length===1){ buffer+=e.key; append(e.key) }
   });
+  helpBtn.addEventListener('click', function(){ cmd('help') })
+
+  // quick hotkeys (only when input not focused)
+  document.addEventListener('keydown', function(e){
+    if(document.activeElement===prompt) return;
+    if(['1','2','3','4'].includes(e.key)) cmd(e.key)
+  })
+
+  // anarchy mode toggle
+  anarchyBtn.addEventListener('click', function(){ document.body.classList.toggle('anarchy') })
 })();
 </script>
 </body>
