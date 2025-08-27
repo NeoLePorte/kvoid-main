@@ -43,6 +43,8 @@ pre{margin:0;white-space:pre-wrap;word-break:break-word}
 
 /* ANSI helpers */
 .c-g{color:var(--acid)} .c-a{color:var(--amber)} .c-m{color:var(--mag)} .c-r{color:var(--blood)} .dim{color:var(--ink-dim)}
+.ascii{display:block;white-space:pre;line-height:1;font-size:12px;margin:8px 0}
+.stereo{text-shadow:1px 0 var(--mag),-1px 0 var(--acid),0 0 6px rgba(192,43,255,.25)}
 
 /* Prompt bar */
 .promptbar{display:flex;align-items:center;gap:8px;padding:8px 10px;border-top:1px dashed #2a3147;background:rgba(5,6,10,.7)}
@@ -109,6 +111,15 @@ Initiating link… <span class="cursor" id="cur"></span>
   const prompt = document.getElementById('prompt');
   const helpBtn = document.getElementById('helpBtn');
   const anarchyBtn = document.getElementById('anarchy');
+  
+  // BARBELITH ASCII banner with stereoscopic highlight
+  const banner = `
+██████╗  █████╗ ██████╗  █████╗ ███████╗██╗     ██╗████████╗██╗  ██╗
+██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔════╝██║     ██║╚══██╔══╝██║  ██║
+██████╔╝███████║██████╔╝███████║█████╗  ██║     ██║   ██║   ███████║
+██╔══██╗██╔══██║██╔══██╗██╔══██║██╔══╝  ██║     ██║   ██║   ██╔══██║
+██║  ██║██║  ██║██║  ██║██║  ██║███████╗███████╗██║   ██║   ██║  ██║
+╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝   ╚═╝   ╚═╝  ╚═╝`;
 
   // ticker
   function pad(n){return String(n).padStart(2,'0')}
@@ -124,7 +135,14 @@ Initiating link… <span class="cursor" id="cur"></span>
   }
   setInterval(tick,1000); tick();
 
-  // typewriter intro
+  // typewriter intro (ASCII banner injected above lines)
+  // inject BARBELITH banner with stereoscopic class
+  const asciiNode=document.createElement('div');
+  asciiNode.className='ascii stereo';
+  asciiNode.textContent=banner;
+  screen.appendChild(asciiNode);
+  function newline(){screen.appendChild(document.createElement('br'))}
+  newline();
   const lines = [
     "\n\n\x1b[32m[ LINK ESTABLISHED ]\x1b[0m",
     "NOW: Transmission 04 — Portal Drift",
@@ -140,7 +158,6 @@ Initiating link… <span class="cursor" id="cur"></span>
   ];
   let i=0, j=0;
   function append(text){screen.appendChild(document.createTextNode(text))}
-  function newline(){screen.appendChild(document.createElement('br'))}
   (function step(){
     if(i>=lines.length) return;
     const ln = lines[i];
@@ -154,10 +171,10 @@ Initiating link… <span class="cursor" id="cur"></span>
   function cmd(v){
     switch(v){
       case '1': case 'tune': openURL('https://tune.kvoid.net'); break;
-      case '2': case 'archive': log('ACCESS ARCHIVE — WIP'); break;
+      case '2': case 'archive': log('ACCESS \x1b[35mSIGNAL ARCHIVE\x1b[0m — WIP'); break;
       case '3': case 'open': openURL('mailto:contact@kvoid.net'); break;
       case '4': case 'manifest': log('MANIFEST: counterculture transmission node.'); break;
-      case '?': case 'help': log('commands: tune, archive, open, manifest, clear'); break;
+      case '?': case 'help': log('commands: tune, \x1b[35marchive\x1b[0m, open, manifest, clear'); break;
       case 'clear': screen.textContent=''; break;
       default: log('unknown. try: help');
     }
